@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfEmployeesApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfEmployeesApp"
+        mc:Ignorable="d"
+        Title="Employees TreeView Lazy Loading by Diaaeldin" Height="450" Width="450"
+		d:DataContext="{StaticResource MainViewModel}">
+	<StackPanel>
+		<TreeView MinHeight="20" ItemsSource="{Binding Managers}">
+			<TreeView.ItemContainerStyle>
+				<Style TargetType="TreeViewItem">
+					<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+					<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+					<Setter Property="FontWeight" Value="Normal" />
+					<Style.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="FontWeight" Value="Bold" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</TreeView.ItemContainerStyle>
+			<TreeView.ItemTemplate>
+				<HierarchicalDataTemplate ItemsSource="{Binding EmployeeTeamMembers}">
+					<Label Content="{Binding EmployeesModelDbEmployee.EmployeeName}"/>
+				</HierarchicalDataTemplate>
+			</TreeView.ItemTemplate>
+		</TreeView>
+	</StackPanel>
+</Window>
